@@ -1,19 +1,45 @@
 plugins {
-    id 'java'
+  id 'java'
+  id 'idea'
+  id 'ru.vyarus.quality' version '4.6.0'
+  id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group 'me.becycled'
 version '1.0-SNAPSHOT'
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+compileJava.options.encoding = 'UTF-8'
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+idea {
+  module {
+    downloadJavadoc = true
+    downloadSources = true
+  }
 }
 
 test {
-    useJUnitPlatform()
+  useJUnitPlatform()
+}
+
+jar {
+  archiveName = 'service.jar'
+  manifest {
+    attributes(
+      'Main-Class': 'me.becycled.iothub.Main'
+    )
+  }
+}
+
+shadowJar {
+  archiveName = 'service-with-deps.jar'
+}
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+  testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
