@@ -98,7 +98,7 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
 
     private static int findTrackerIdByImei(final String imei) {
         try (var conn = SqlDataSourceManager.INSTANCE.getConnection();
-             var stmt = conn.prepareStatement("SELECT id FROM trackers WHERE imei = ?")) {
+             var stmt = conn.prepareStatement("SELECT id FROM trackers WHERE imei = ?::TEXT")) {
             stmt.setString(1, imei.strip());
 
             try (var rs = stmt.executeQuery()) {
