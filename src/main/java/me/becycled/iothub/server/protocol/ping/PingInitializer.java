@@ -9,7 +9,7 @@ import io.netty.util.CharsetUtil;
 /**
  * @author Suren Kalaychyan
  */
-public class PingInitializer extends ChannelInitializer<SocketChannel> {
+public final class PingInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(final SocketChannel ch) {

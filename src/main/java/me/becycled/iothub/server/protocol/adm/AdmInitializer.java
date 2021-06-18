@@ -6,7 +6,7 @@ import io.netty.channel.socket.SocketChannel;
 /**
  * @author Suren Kalaychyan
  */
-public class AdmInitializer extends ChannelInitializer<SocketChannel> {
+public final class AdmInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     protected void initChannel(final SocketChannel ch) {

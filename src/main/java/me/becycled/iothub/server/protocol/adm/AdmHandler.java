@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @author Suren Kalaychyan
  */
-public class AdmHandler extends ChannelInboundHandlerAdapter {
+public final class AdmHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdmHandler.class);
 

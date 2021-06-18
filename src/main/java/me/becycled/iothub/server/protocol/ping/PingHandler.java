@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author Suren Kalaychyan
  */
-public class PingHandler extends ChannelInboundHandlerAdapter {
+public final class PingHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PingHandler.class);
 

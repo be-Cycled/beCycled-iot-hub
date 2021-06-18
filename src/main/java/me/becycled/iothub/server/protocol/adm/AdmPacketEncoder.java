@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Suren Kalaychyan
  */
-public class AdmPacketEncoder extends MessageToByteEncoder<List<AdmPacket>> {
+public final class AdmPacketEncoder extends MessageToByteEncoder<List<AdmPacket>> {
 
     @Override
     protected void encode(final ChannelHandlerContext ctx, final List<AdmPacket> msg, final ByteBuf out) {
