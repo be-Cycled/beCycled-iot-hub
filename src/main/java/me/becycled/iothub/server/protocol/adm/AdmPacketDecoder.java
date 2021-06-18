@@ -18,6 +18,7 @@ import static me.becycled.iothub.server.protocol.adm.AdmUtils.IMEI_LENGTH;
 /**
  * @author Suren Kalaychyan
  */
+@SuppressWarnings("PMD.LinguisticNaming")
 public final class AdmPacketDecoder extends ByteToMessageDecoder {
 
     @Override

@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * @author Suren Kalaychyan
  */
+@SuppressWarnings("PMD.SingularField")
 public final class AdmHandler extends ChannelInboundHandlerAdapter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AdmHandler.class);

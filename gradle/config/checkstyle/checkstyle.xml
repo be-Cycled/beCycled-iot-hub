@@ -18,9 +18,9 @@
         <property name="optional" value="true"/>
     </module>
 
-    <module name="LineLength">
-        <property name="max" value="120"/>
-    </module>
+<!--    <module name="LineLength">-->
+<!--        <property name="max" value="120"/>-->
+<!--    </module>-->
     <module name="NewlineAtEndOfFile"/>
     <!-- disabled in favour of PMD ExcessiveClassLength check, which correctly checks class length not file length -->
     <!--<module name="FileLength">-->
@@ -114,10 +114,10 @@
         <module name="PackageDeclaration"/>
         <module name="ParameterAssignment"/>  <!-- more strict version is FinalParameters -->
         <!--<module name="RequireThis"/>-->
-        <module name="ReturnCount">
-            <property name="max" value="2"/>
-            <property name="maxForVoid" value="1"/>
-        </module>
+<!--        <module name="ReturnCount">-->
+<!--            <property name="max" value="3"/>-->
+<!--            <property name="maxForVoid" value="3"/>-->
+<!--        </module>-->
         <module name="SimplifyBooleanExpression"/>
         <module name="SimplifyBooleanReturn"/>
         <module name="StringLiteralEquality"/>
@@ -261,7 +261,7 @@
         <module name="NoLineWrap"/>
         <module name="NoWhitespaceAfter"/>
         <module name="NoWhitespaceBefore"/>
-        <module name="OperatorWrap"/>
+<!--        <module name="OperatorWrap"/>-->
         <module name="ParenPad"/>
         <module name="SeparatorWrap">
             <property name="tokens" value="COMMA"/>
@@ -274,6 +274,6 @@
         <module name="SingleSpaceSeparator"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround"/>
+<!--        <module name="WhitespaceAround"/> -->
     </module>
 </module>

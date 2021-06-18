@@ -5,7 +5,6 @@ import java.text.MessageFormat;
 /**
  * @author Suren Kalaychyan
  */
-@SuppressWarnings("WhitespaceAround")
 enum AdmUtils {;
 
     static final int IMEI_LENGTH = 15;
@@ -50,7 +49,6 @@ enum AdmUtils {;
         ADM007,
         UNKNOWN;
 
-        @SuppressWarnings("ReturnCount")
         static AdmHardwareType fromByte(final byte typeByte) {
             switch (typeByte) {
                 case 0x00:
