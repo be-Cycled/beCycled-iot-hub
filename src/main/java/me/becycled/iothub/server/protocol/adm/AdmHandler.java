@@ -11,6 +11,8 @@ import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.util.List;
 
+import static org.apache.commons.lang3.math.NumberUtils.DOUBLE_ZERO;
+
 /**
  * @author Suren Kalaychyan
  */
@@ -77,23 +79,25 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
     }
 
     private static void writeTelemetries(final int trackerId, final List<Telemetry> telemetries) {
-        telemetries.forEach(telemetry -> {
-            telemetry.setTrackerId(trackerId);
-            try (var conn = SqlDataSourceManager.INSTANCE.getConnection();
-                 var stmt = conn.prepareStatement("INSERT INTO telemetries (tracker_id, fix_time, latitude, longitude, altitude, speed, course) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING")) {
-                stmt.setInt(1, telemetry.getTrackerId());
-                stmt.setTimestamp(2, Timestamp.from(telemetry.getFixTime()));
-                stmt.setDouble(3, telemetry.getLatitude());
-                stmt.setDouble(4, telemetry.getLongitude());
-                stmt.setDouble(5, telemetry.getAltitude());
-                stmt.setInt(6, telemetry.getSpeed());
-                stmt.setInt(7, telemetry.getCourse());
+        telemetries.stream()
+            .filter(t -> !DOUBLE_ZERO.equals(t.getLatitude()) && !DOUBLE_ZERO.equals(t.getLongitude()))
+            .forEach(t -> {
+                t.setTrackerId(trackerId);
+                try (var conn = SqlDataSourceManager.INSTANCE.getConnection();
+                     var stmt = conn.prepareStatement("INSERT INTO telemetries (tracker_id, fix_time, latitude, longitude, altitude, speed, course) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING")) {
+                    stmt.setInt(1, t.getTrackerId());
+                    stmt.setTimestamp(2, Timestamp.from(t.getFixTime()));
+                    stmt.setDouble(3, t.getLatitude());
+                    stmt.setDouble(4, t.getLongitude());
+                    stmt.setDouble(5, t.getAltitude());
+                    stmt.setInt(6, t.getSpeed());
+                    stmt.setInt(7, t.getCourse());
 
-                stmt.executeUpdate();
-            } catch (Exception ex) {
-                LOGGER.error(ex.getMessage(), ex);
-            }
-        });
+                    stmt.executeUpdate();
+                } catch (Exception ex) {
+                    LOGGER.error(ex.getMessage(), ex);
+                }
+            });
     }
 
     private static int findTrackerIdByImei(final String imei) {
