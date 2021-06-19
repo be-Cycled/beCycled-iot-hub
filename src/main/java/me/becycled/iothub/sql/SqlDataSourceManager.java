@@ -41,8 +41,8 @@ public enum SqlDataSourceManager {
         props.setProperty(DATASOURCE_SERVER_NAME, System.getProperty(DATASOURCE_SERVER_NAME, "localhost"));
         props.setProperty(DATASOURCE_PORT_NUMBER, System.getProperty(DATASOURCE_PORT_NUMBER, "5432"));
         props.setProperty(DATASOURCE_DATABASE_NAME, System.getProperty(DATASOURCE_DATABASE_NAME, "becycled"));
-        props.setProperty(DATASOURCE_USER, System.getProperty(DATASOURCE_CLASS_NAME, "becycled"));
-        props.setProperty(DATASOURCE_PASSWORD, System.getProperty(DATASOURCE_CLASS_NAME, "becycled"));
+        props.setProperty(DATASOURCE_USER, System.getProperty(DATASOURCE_USER, "becycled"));
+        props.setProperty(DATASOURCE_PASSWORD, System.getProperty(DATASOURCE_PASSWORD, "becycled"));
         return props;
     }
 }
