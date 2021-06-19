@@ -4,9 +4,6 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.util.Properties;
 
@@ -18,7 +15,12 @@ public enum SqlDataSourceManager {
 
     INSTANCE;
 
-    private static final String CONFIG_FILE = "src/main/resources/hikari.properties";
+    private static final String DATASOURCE_CLASS_NAME = "dataSourceClassName";
+    private static final String DATASOURCE_SERVER_NAME = "dataSource.serverName";
+    private static final String DATASOURCE_PORT_NUMBER = "dataSource.portNumber";
+    private static final String DATASOURCE_DATABASE_NAME = "dataSource.databaseName";
+    private static final String DATASOURCE_USER = "dataSource.user";
+    private static final String DATASOURCE_PASSWORD = "dataSource.password";
 
     private HikariDataSource dataSource;
 
@@ -33,17 +35,14 @@ public enum SqlDataSourceManager {
     }
 
     @SuppressWarnings("MultipleStringLiterals")
-    private static Properties loadProperties() throws Exception {
-        try (InputStream input = Files.newInputStream(Paths.get(CONFIG_FILE))) {
-            final Properties props = new Properties();
-            props.load(input);
-
-            final String host = System.getProperty("dataSource.serverName", props.getProperty("dataSource.serverName"));
-            final String password = System.getProperty("dataSource.password", props.getProperty("dataSource.password"));
-            props.setProperty("dataSource.serverName", host);
-            props.setProperty("dataSource.password", password);
-
-            return props;
-        }
+    private static Properties loadProperties() {
+        final Properties props = new Properties();
+        props.setProperty(DATASOURCE_CLASS_NAME, System.getProperty(DATASOURCE_CLASS_NAME, "org.postgresql.ds.PGSimpleDataSource"));
+        props.setProperty(DATASOURCE_SERVER_NAME, System.getProperty(DATASOURCE_SERVER_NAME, "localhost"));
+        props.setProperty(DATASOURCE_PORT_NUMBER, System.getProperty(DATASOURCE_PORT_NUMBER, "5432"));
+        props.setProperty(DATASOURCE_DATABASE_NAME, System.getProperty(DATASOURCE_DATABASE_NAME, "becycled"));
+        props.setProperty(DATASOURCE_USER, System.getProperty(DATASOURCE_CLASS_NAME, "becycled"));
+        props.setProperty(DATASOURCE_PASSWORD, System.getProperty(DATASOURCE_CLASS_NAME, "becycled"));
+        return props;
     }
 }
