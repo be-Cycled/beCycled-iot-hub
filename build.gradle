@@ -26,7 +26,7 @@ jar {
   archiveName = 'service.jar'
   manifest {
     attributes(
-      'Main-Class': 'me.becycled.iothub.Main'
+      'Main-Class': 'me.becycled.iothub.IoTHubApplication'
     )
   }
 }

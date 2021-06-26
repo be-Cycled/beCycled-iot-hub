@@ -8,9 +8,9 @@ import org.slf4j.LoggerFactory;
  * @author binakot
  */
 @SuppressWarnings({"HideUtilityClassConstructor", "PMD.UseUtilityClass"})
-public class Main {
+public class IoTHubApplication {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(IoTHubApplication.class);
 
     public static void main(final String... args) {
         final ServerManager manager = new ServerManager();

@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Disabled
 public class AdmProtocolTest {
 
-    private static final int PORT = 10000;
+    private static final int PORT = 10001;
     private static final TcpServer server = new TcpServer(PORT, new AdmInitializer());
     private static boolean inited = false;
 

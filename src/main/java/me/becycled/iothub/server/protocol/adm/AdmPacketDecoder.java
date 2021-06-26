@@ -28,6 +28,7 @@ public final class AdmPacketDecoder extends ByteToMessageDecoder {
             in.skipBytes(2); // DEVICE_ID
             final int length = in.readUnsignedByte();
             final byte type = in.readByte();
+
             final AdmPacket packet = new AdmPacket(AdmUtils.AdmPacketType.fromByteAndLength(type, length));
             switch (packet.getType()) {
                 case AUTH:
