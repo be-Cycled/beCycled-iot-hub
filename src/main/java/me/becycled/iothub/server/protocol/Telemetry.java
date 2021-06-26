@@ -23,6 +23,8 @@ public final class Telemetry {
     private Telemetry() {
     }
 
+    //region GETTERS & SETTERS
+
     public Integer getTrackerId() {
         return trackerId;
     }
@@ -87,9 +89,7 @@ public final class Telemetry {
         this.course = course;
     }
 
-    public Builder editor() {
-        return this.new Builder(this);
-    }
+    //endregion GETTERS & SETTERS
 
     @Override
     @SuppressWarnings("CyclomaticComplexity")
@@ -130,12 +130,16 @@ public final class Telemetry {
             .toString();
     }
 
+    public Builder editor() {
+        return this.new Builder(this);
+    }
+
     public static Builder builder() {
         return new Telemetry().new Builder();
     }
 
     /**
-     * @author Ivan Muratov @binakot
+     * @author Suren Kalaychyan
      */
     public final class Builder {
 

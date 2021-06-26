@@ -25,6 +25,8 @@ public final class AdmPacket {
         this.type = type;
     }
 
+    //region GETTERS & SETTERS
+
     public AdmUtils.AdmPacketType getType() {
         return type;
     }
@@ -64,6 +66,8 @@ public final class AdmPacket {
     public List<Telemetry> getRecords() {
         return records;
     }
+
+    //endregion GETTERS & SETTERS
 
     @Override
     public boolean equals(final Object o) {

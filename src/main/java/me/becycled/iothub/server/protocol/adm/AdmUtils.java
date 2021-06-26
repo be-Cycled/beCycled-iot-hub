@@ -10,7 +10,6 @@ enum AdmUtils {;
     static final int IMEI_LENGTH = 15;
 
     static final int PACKET_HEADER_LENGTH = 4; // DEVICE_ID (2 bytes) + SIZE (1 byte) + TYPE (1 byte)
-
     static final byte AUTH_PACKET_SIGN = 0x03;
     static final int AUTH_PACKET_LENGTH = 66;
     static final byte ADM5_PACKET_SIGN = 0x01;

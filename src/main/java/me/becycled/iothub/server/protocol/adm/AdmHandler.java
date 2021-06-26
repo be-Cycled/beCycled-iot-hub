@@ -4,6 +4,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import me.becycled.iothub.server.protocol.Telemetry;
 import me.becycled.iothub.sql.SqlDataSourceManager;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,6 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(AdmHandler.class);
 
     private int trackerId = -1;
-    private boolean isAuthorized;
     private AdmUtils.AdmReplyType replyType;
 
     @Override
@@ -54,8 +54,8 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
 
                 case DATA_ADM5:
                 case DATA_ADM6:
-                    if (!isAuthorized) {
-                        throw new IllegalStateException("Received packet from unauthorized device.");
+                    if (trackerId < 1) {
+                        throw new IllegalStateException("Received a packet from unauthorized device.");
                     }
                     packet.setReplyType(replyType);
                     writeTelemetries(trackerId, packet.getRecords());
@@ -68,14 +68,13 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
         }
     }
 
-    private boolean authenticate(final String identifier) {
-        if (identifier == null || identifier.isEmpty()) {
-            throw new IllegalArgumentException("Identifier cannot be null or empty.");
+    private boolean authenticate(final String imei) {
+        if (StringUtils.isBlank(imei)) {
+            throw new IllegalArgumentException("Identifier cannot be null or empty: " + imei);
         }
 
-        trackerId = findTrackerIdByImei(identifier);
-        isAuthorized = trackerId > 0;
-        return isAuthorized;
+        trackerId = findTrackerIdByImei(imei);
+        return trackerId > 0;
     }
 
     private static void writeTelemetries(final int trackerId, final List<Telemetry> telemetries) {
@@ -84,7 +83,9 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
             .forEach(t -> {
                 t.setTrackerId(trackerId);
                 try (var conn = SqlDataSourceManager.INSTANCE.getConnection();
-                     var stmt = conn.prepareStatement("INSERT INTO telemetries (tracker_id, fix_time, latitude, longitude, altitude, speed, course) VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING")) {
+                     var stmt = conn.prepareStatement(
+                         "INSERT INTO telemetries (tracker_id, fix_time, latitude, longitude, altitude, speed, course) " +
+                             "VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT DO NOTHING")) {
                     stmt.setInt(1, t.getTrackerId());
                     stmt.setTimestamp(2, Timestamp.from(t.getFixTime()));
                     stmt.setDouble(3, t.getLatitude());
@@ -102,8 +103,8 @@ public final class AdmHandler extends ChannelInboundHandlerAdapter {
 
     private static int findTrackerIdByImei(final String imei) {
         try (var conn = SqlDataSourceManager.INSTANCE.getConnection();
-             var stmt = conn.prepareStatement("SELECT id FROM trackers WHERE imei = ?::TEXT")) {
-            stmt.setString(1, imei.strip());
+             var stmt = conn.prepareStatement("SELECT id FROM trackers WHERE imei = ?")) {
+            stmt.setString(1, imei);
 
             try (var rs = stmt.executeQuery()) {
                 if (rs.next()) {
