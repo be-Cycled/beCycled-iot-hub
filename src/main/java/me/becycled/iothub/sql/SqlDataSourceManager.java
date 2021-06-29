@@ -15,23 +15,26 @@ public enum SqlDataSourceManager {
 
     INSTANCE;
 
-    private static final String DATASOURCE_CLASS_NAME = "dataSourceClassName";
-    private static final String DATASOURCE_SERVER_NAME = "dataSource.serverName";
-    private static final String DATASOURCE_PORT_NUMBER = "dataSource.portNumber";
-    private static final String DATASOURCE_DATABASE_NAME = "dataSource.databaseName";
-    private static final String DATASOURCE_USER = "dataSource.user";
-    private static final String DATASOURCE_PASSWORD = "dataSource.password";
+    public static final String DATASOURCE_CLASS_NAME = "dataSourceClassName";
+    public static final String DATASOURCE_SERVER_NAME = "dataSource.serverName";
+    public static final String DATASOURCE_PORT_NUMBER = "dataSource.portNumber";
+    public static final String DATASOURCE_DATABASE_NAME = "dataSource.databaseName";
+    public static final String DATASOURCE_USER = "dataSource.user";
+    public static final String DATASOURCE_PASSWORD = "dataSource.password";
 
     private HikariDataSource dataSource;
 
     public Connection getConnection() throws Exception {
         if (dataSource == null) {
-            final Properties props = loadProperties();
-            final HikariConfig config = new HikariConfig(props);
-            dataSource = new HikariDataSource(config);
+            initConnection();
         }
-
         return dataSource.getConnection();
+    }
+
+    public void initConnection() {
+        final Properties props = loadProperties();
+        final HikariConfig config = new HikariConfig(props);
+        dataSource = new HikariDataSource(config);
     }
 
     @SuppressWarnings("MultipleStringLiterals")

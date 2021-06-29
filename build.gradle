@@ -53,4 +53,5 @@ dependencies {
 
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.1'
   testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.7.1'
+  testImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.15.3'
 }
