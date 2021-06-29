@@ -1,9 +1,9 @@
 package me.becycled.iothub.server.protocol.adm;
 
 import me.becycled.iothub.server.TcpServer;
+import me.becycled.iothub.server.protocol.BaseProtocolTest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
@@ -16,8 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * @author Suren Kalaychyan
  */
-@Disabled
-public class AdmProtocolTest {
+public class AdmProtocolTest extends BaseProtocolTest {
 
     private static final int PORT = 10001;
     private static final TcpServer server = new TcpServer(PORT, new AdmInitializer());

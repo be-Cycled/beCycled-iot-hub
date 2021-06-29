@@ -9,8 +9,6 @@ import org.apache.commons.lang3.ArrayUtils;
  */
 enum AdmProtocolTestUtils {;
 
-    static final String AUTH_IMEI = "100000000000000";
-
     static byte[] VALID_AUTH_PACKET;
     static byte[] VALID_AUTH_RESPONSE;
 
