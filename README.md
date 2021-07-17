@@ -2,6 +2,8 @@
 
 Телематический хаб для GPS | ГЛОНАСС устройств и программных трекеров.
 
+![beCycled Deploy Status](https://img.shields.io/github/workflow/status/be-Cycled/beCycled-devops/Deploy?label=deploy)
+
 ## Протоколы
 
 | Порт | Протокол |
